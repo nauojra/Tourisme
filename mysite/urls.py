@@ -16,10 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from apptourisme.views import(
-  contact,
+
+  index,
+    
     )
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', contact),
+    path('', index),
+
 
 ]
