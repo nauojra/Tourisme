@@ -18,7 +18,9 @@ from django.urls import path
 from apptourisme.views import(
   index,
 	)
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index),
+
 ]
