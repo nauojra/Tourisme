@@ -69,7 +69,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
-
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+GOOGLE_RECAPTCHA_SECRET_KEY = 'secret_key_here'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
