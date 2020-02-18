@@ -6,9 +6,9 @@ from .forms import ContactForm
 
 
 # Create your views here.
-def contact(request):
+def index(request):
 	print(request.headers)
-	return render(request,"contact.html",{})
+	return render(request,"index.html",{})
 
 
 import urllib
