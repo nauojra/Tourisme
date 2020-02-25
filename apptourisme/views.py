@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
-from .forms import ContactForm
+from .forms import ContactForm, VisiteForm
+from apptourisme.models import Hotel,Contact
 
 
 # Create your views here.
@@ -10,31 +11,49 @@ def index(request):
 	print(request.headers)
 	return render(request,"index.html",{})
 
+def hotel(request):
+	hotel= Hotel.objects.all()
+	return render(request,'hotel.html',{ 'liste_Hotels': hotel })
 
-import urllib
+def transport(request):
+	return render(request,'transport.html' )
 
-def Message_Create_View(request):
-    Contact = Contact()
-    if request.method == 'POST':
-        form = Contact(request.POST)
-        if form.is_valid():
-            #----- form -----#
-            
-            message = request.POST['message']
-            nom = request.POST['name']
-            email = request.POST['email']
-            recaptcha_response = request.POST.get('g-recaptcha-response')
-            #---- captcha -----#
-            url = 'https://www.google.com/recaptcha/api/siteverify'
-            values = {
-                'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
-                'response': recaptcha_response
-            }
-            data = urllib.parse.urlencode(values).encode()
-            req =  urllib.request.Request(url, data=data)
-            response = urllib.request.urlopen(req)
-            result = json.loads(response.read().decode())
-            #---- process data  -----#
-                         
-    context = {'Contact':contact}
-    return render(request, "my_app/contact.html", context)
+def activite(request):
+    return render(request,'activite.html')
+
+def restaurant(request):
+    return render(request,'restaurant.html')
+
+def Tanger(request):
+	return render(request,'Tanger.html')
+
+def Assilah(request):
+	return render(request,'Assilah.html')
+
+def Larache(request):
+	return render(request,'Larache.html')
+
+
+
+
+def Contact_Create_View(request):
+    form = ContactForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        form=ContactForm()
+    context = {'form':form}
+    return render(request, "contact.html", context)
+def Contact_detail_View(request):
+    obj = Contact.objects.get(id=1)
+    context = {'object':obj}
+
+def Visite_Create_View(request):
+    form1 = VisiteForm(request.POST or None)
+    if form1.is_valid():
+        form1.save()
+        form1=VisiteForm()
+    context = {'form1':form1}
+    return render(request, "visite.html", context)
+def Visite_detail_View(request):
+    obj = Visite.objects.get(id=1)
+    context = {'object':obj}

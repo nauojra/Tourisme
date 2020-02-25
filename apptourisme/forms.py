@@ -1,7 +1,28 @@
 # sendemail/forms.py
 from django import forms
+from .models import Contact,VisiteGuidee
 
-class ContactForm(forms.Form):
-    from_email = forms.EmailField(required=True)
-    subject = forms.CharField(required=True)
-    message = forms.CharField(widget=forms.Textarea, required=True)
+class ContactForm(forms.ModelForm):
+	class Meta:
+		model=Contact
+		fields=[
+         'nom',
+         'email',
+         'message',
+
+		]
+
+class VisiteForm(forms.ModelForm):
+	class Meta:
+		model=VisiteGuidee
+		fields=[
+         'nom',
+         'prenom',
+         'email',
+         'telephone',
+         'cin',
+         'nbr',
+         'date',
+         'message',
+
+		]
